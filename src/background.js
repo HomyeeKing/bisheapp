@@ -5,10 +5,12 @@ const contextMenu = require('electron-context-menu')
 const resolveConfig = require('tailwindcss/resolveConfig')
 const tailwindConfig = require('../tailwind.config.js')
 const fullTailwindConfig = resolveConfig(tailwindConfig)
-
+const path = require('path')
 try {
   require('electron-reloader')(module)
 } catch {}
+
+
 
 contextMenu({
   showSearchWithGoogle: false,
@@ -37,6 +39,7 @@ function loadVitePage(port) {
 function createMainWindow() {
   mainWindow = createWindow('main', {
     backgroundColor: fullTailwindConfig.theme.colors.primary[800],
+    preload:__dirname+ 'preload.js'
   })
   mainWindow.once('close', () => {
     mainWindow = null

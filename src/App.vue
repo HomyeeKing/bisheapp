@@ -1,22 +1,18 @@
 <template>
   <div class="h-screen w-screen flex flex-col pt-12">
     <TopBar />
-    <!-- [ HERE COMES YOUR CONTENT ] -->
-    <transition name="fade" appear>
-      <div class="flex flex-col items-center justify-center h-full pb-0">
-        <img class="h-48 ml-5" src="/logo.png" draggable="false" />
-      </div>
-    </transition>
+    <button class="bg-green-600 h-12" @click="test">监听网络</button>
   </div>
 </template>
 
-<script>
+<script setup>
 import TopBar from '/~/components/layout/TopBar.vue'
 
-export default {
-  name: 'App',
-  components: {
-    TopBar,
-  },
+const test = () => {
+  console.log(window.require)
+  if (window.require) {
+    const ipc = window.require('electron').ipcRenderer
+    ipc.send('perform', 'sss')
+  }
 }
 </script>
